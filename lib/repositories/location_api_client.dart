@@ -22,7 +22,11 @@ class LocationApiClient {
     return LatLng(latitude, longitude);
   }
 
-  Future<List> getCourts(latitude, longitude) async {
+  Future<List> getCourts() async {
+    Location location = Location();
+    var pos = await location.getLocation();
+    final latitude = pos.latitude;
+    final longitude = pos.longitude;
     final locationUrl =
         '$baseUrl/json?location=$latitude,$longitude&radius=3500&keyword=basket&key=AIzaSyA6g7pytqXm3WEBzyDpbvJW2jEfxSPTDAk';
     final locationResponse = await this.httpClient.get(locationUrl);
