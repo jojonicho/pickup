@@ -32,9 +32,8 @@ class _HomeState extends State<Home> {
       body: Stack(
         children: <Widget>[
           GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(2, 5),
-            ),
+            initialCameraPosition:
+                CameraPosition(target: LatLng(-6, 106), zoom: 10),
             myLocationEnabled: true,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);

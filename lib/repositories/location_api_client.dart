@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,14 +12,6 @@ class LocationApiClient {
   LocationApiClient({
     @required this.httpClient,
   }) : assert(httpClient != null);
-
-  static Future getCurrentLocation() async {
-    Location location = Location();
-    var pos = await location.getLocation();
-    final latitude = pos.latitude;
-    final longitude = pos.longitude;
-    return LatLng(latitude, longitude);
-  }
 
   Future<List> getCourts() async {
     Location location = Location();
@@ -34,8 +25,8 @@ class LocationApiClient {
       throw Exception('error getting location');
     }
 
-    final locationJson = jsonDecode(locationResponse.body) as List;
-    return (locationJson.first)['Results'];
+    final locationJson = jsonDecode(locationResponse.body);
+    return locationJson['Results'];
   }
 
 // _animateToUser() async {
