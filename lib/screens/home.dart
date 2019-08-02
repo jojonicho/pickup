@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:scratch/models/court.dart';
 import 'package:scratch/main.dart';
-import 'package:scratch/repositories/location_api_client.dart';
 import 'package:scratch/style.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -37,8 +37,9 @@ class _HomeState extends State<Home> {
             ),
             myLocationEnabled: true,
             onMapCreated: (GoogleMapController controller) {
-              _controller.complete();
+              _controller.complete(controller);
             },
+            myLocationButtonEnabled: false,
           ),
           Align(
             alignment: Alignment(0.00, 0.70),
@@ -69,17 +70,37 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.location_on),
         onPressed: _currentLocation,
-        backgroundColor: Colors.deepPurple[400],
+        backgroundColor: Colors.indigo[300],
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  Future _currentLocation() async {
+  void _currentLocation() async {
     final GoogleMapController controller = await _controller.future;
-    final lolocation = await LocationApiClient.getCurrentLocation();
-    controller.animateCamera(CameraUpdate.newCameraPosition(lolocation));
+    LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+      currentLocation = null;
+    }
+
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: 0,
+        target: LatLng(currentLocation.latitude, currentLocation.longitude),
+        zoom: 17.0,
+      ),
+    ));
   }
+
+  // Future _currentLocation() async {
+  //   final GoogleMapController controller = await _controller.future;
+  //   final lolocation = await LocationApiClient.getCurrentLocation();
+  //   controller.animateCamera(
+  //       CameraUpdate.newCameraPosition(CameraPosition(target: lolocation)));
+  // }
 
   _onLocationTap(BuildContext context, int courtID) {
     Navigator.pushNamed(context, CourtRoute, arguments: {"id": courtID});
