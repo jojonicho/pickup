@@ -1,11 +1,20 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:scratch/models/court.dart';
 import 'package:scratch/main.dart';
+import 'package:scratch/repositories/location_api_client.dart';
 import 'package:scratch/style.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  Completer<GoogleMapController> _controller = Completer();
+
   @override
   Widget build(BuildContext context) {
     final courts = Court.fetchAll();
@@ -24,10 +33,12 @@ class Home extends StatelessWidget {
         children: <Widget>[
           GoogleMap(
             initialCameraPosition: CameraPosition(
-              target: LatLng(37.43296265331129, -122.08832357078792),
+              target: LatLng(2, 5),
             ),
             myLocationEnabled: true,
-            onMapCreated: (GoogleMapController controller) {},
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete();
+            },
           ),
           Align(
             alignment: Alignment(0.00, 0.70),
@@ -55,13 +66,19 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.location_on),
-      //   onPressed: () {},
-      //   backgroundColor: Colors.deepPurple[400],
-      // ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.location_on),
+        onPressed: _currentLocation,
+        backgroundColor: Colors.deepPurple[400],
+      ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+  Future _currentLocation() async {
+    final GoogleMapController controller = await _controller.future;
+    final lolocation = await LocationApiClient.getCurrentLocation();
+    controller.animateCamera(CameraUpdate.newCameraPosition(lolocation));
   }
 
   _onLocationTap(BuildContext context, int courtID) {
