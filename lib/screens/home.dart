@@ -1,8 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:scratch/models/court.dart';
-import 'package:scratch/app.dart';
+import 'package:scratch/main.dart';
 import 'package:scratch/style.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -27,6 +26,7 @@ class Home extends StatelessWidget {
             initialCameraPosition: CameraPosition(
               target: LatLng(37.43296265331129, -122.08832357078792),
             ),
+            myLocationEnabled: true,
             onMapCreated: (GoogleMapController controller) {},
           ),
           Align(
