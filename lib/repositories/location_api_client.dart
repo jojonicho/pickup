@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
 class LocationApiClient {
@@ -13,11 +12,7 @@ class LocationApiClient {
     @required this.httpClient,
   }) : assert(httpClient != null);
 
-  Future<List> getCourts() async {
-    Location location = Location();
-    var pos = await location.getLocation();
-    final latitude = pos.latitude;
-    final longitude = pos.longitude;
+  void getCourts(int latitude, int longitude) async {
     final locationUrl =
         '$baseUrl/json?location=$latitude,$longitude&radius=3500&keyword=basket&key=AIzaSyA6g7pytqXm3WEBzyDpbvJW2jEfxSPTDAk';
     final locationResponse = await this.httpClient.get(locationUrl);
@@ -26,7 +21,7 @@ class LocationApiClient {
     }
 
     final locationJson = jsonDecode(locationResponse.body);
-    return locationJson['Results'];
+    print(locationJson['Results']);
   }
 
 // _animateToUser() async {

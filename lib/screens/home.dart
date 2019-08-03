@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:scratch/models/court.dart';
-import 'package:scratch/main.dart';
+import 'package:scratch/widgets/widgets.dart';
 import 'package:scratch/style.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -93,7 +93,6 @@ class _HomeState extends State<Home> {
       ),
     ));
   }
-
   // Future _currentLocation() async {
   //   final GoogleMapController controller = await _controller.future;
   //   final lolocation = await LocationApiClient.getCurrentLocation();
