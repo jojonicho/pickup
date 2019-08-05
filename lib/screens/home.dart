@@ -43,15 +43,14 @@ class _HomeState extends State<Home> {
       body: Center(
         child:
             BlocBuilder<LocationBloc, LocationState>(builder: (context, state) {
-          if (state is LocationEmpty) {
-            return Center(child: Text('Please Select a Location'));
+          if (state is InitialLocationState) {
+            locationBloc.dispatch(FetchLocation());
+            return Center(child: Text('Welcome To Pickup'));
           }
           if (state is LocationLoading) {
-            // locationBloc.dispatch(FetchLocation(location: court));
             return Center(child: CircularProgressIndicator());
           }
           if (state is LocationLoaded) {
-            locationBloc.dispatch(FetchLocation());
             return Stack(
               children: <Widget>[
                 GoogleMap(

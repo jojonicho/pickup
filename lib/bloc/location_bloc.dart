@@ -13,7 +13,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       : assert(courtRepository != null);
 
   @override
-  LocationState get initialState => LocationLoading();
+  LocationState get initialState => InitialLocationState();
 
   @override
   Stream<LocationState> mapEventToState(
@@ -30,8 +30,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           currentLocation = null;
         }
         final LocationData location = currentLocation;
-        final List<Court> court =
-            await CourtRepository.getNearCourts(currentLocation);
+        final List<Court> court = await CourtRepository(
+                courtApiClient: courtRepository.courtApiClient)
+            .getNearCourts(currentLocation);
         yield LocationLoaded(court: court, location: location);
       } catch (_) {
         yield LocationError();

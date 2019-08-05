@@ -9,7 +9,7 @@ abstract class LocationState extends Equatable {
   LocationState([List props = const []]) : super(props);
 }
 
-class LocationEmpty extends LocationState {}
+class InitialLocationState extends LocationState {}
 
 class LocationLoading extends LocationState {}
 
