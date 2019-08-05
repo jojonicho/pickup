@@ -1,17 +1,9 @@
 import 'dart:async';
 import 'package:location/location.dart';
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-import 'package:scratch/models/models.dart';
-import 'package:scratch/repositories/repositories.dart';
 import './bloc.dart';
 
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
-  final CourtRepository courtRepository;
-
-  LocationBloc({@required this.courtRepository})
-      : assert(courtRepository != null);
-
   @override
   LocationState get initialState => InitialLocationState();
 
@@ -30,10 +22,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           currentLocation = null;
         }
         final LocationData location = currentLocation;
-        final List<Court> court = await CourtRepository(
-                courtApiClient: courtRepository.courtApiClient)
-            .getNearCourts(currentLocation);
-        yield LocationLoaded(court: court, location: location);
+        yield LocationLoaded(location: location);
       } catch (_) {
         yield LocationError();
       }

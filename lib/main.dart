@@ -41,9 +41,14 @@ class App extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.indigo[300],
         ),
-        home: BlocProvider(
-          builder: (context) => LocationBloc(courtRepository: courtRepository),
-          child: Home(),
-        ));
+        home: MultiBlocProvider(providers: [
+          BlocProvider<LocationBloc>(
+            builder: (BuildContext context) => LocationBloc(),
+          ),
+          BlocProvider<CourtBloc>(
+            builder: (BuildContext context) =>
+                CourtBloc(courtRepository: courtRepository),
+          )
+        ], child: Home()));
   }
 }
