@@ -88,9 +88,28 @@ class _HomeState extends State<Home> {
             );
           }
           if (state is LocationError) {
-            return Text(
-              'Something went wrong!',
-              style: TextStyle(color: Colors.red),
+            return RefreshIndicator(
+              onRefresh: () {
+                locationBloc.dispatch(FetchLocation());
+                return null;
+              },
+              child: ListView(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+                        child: Text(
+                          'Something went wrong!',
+                          style: TextStyle(color: Colors.red, fontSize: 18),
+                        ),
+                      ),
+                      Text('Pull to refresh', style: TextStyle(fontSize: 14))
+                    ],
+                  ),
+                ],
+              ),
             );
           }
         }),
