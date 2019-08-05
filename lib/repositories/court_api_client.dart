@@ -2,26 +2,28 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../models/models.dart';
 
-class LocationApiClient {
+class CourtApiClient {
   static const baseUrl =
       'https://maps.googleapis.com/maps/api/place/nearbysearch';
   final http.Client httpClient;
 
-  LocationApiClient({
+  CourtApiClient({
     @required this.httpClient,
   }) : assert(httpClient != null);
 
-  void getCourts(int latitude, int longitude) async {
+  Future fetchCourts(location) async {
     final locationUrl =
-        '$baseUrl/json?location=$latitude,$longitude&radius=3500&keyword=basket&key=AIzaSyA6g7pytqXm3WEBzyDpbvJW2jEfxSPTDAk';
+        '$baseUrl/json?location=$location&radius=3500&keyword=basket&key=AIzaSyA6g7pytqXm3WEBzyDpbvJW2jEfxSPTDAk';
     final locationResponse = await this.httpClient.get(locationUrl);
     if (locationResponse.statusCode != 200) {
       throw Exception('error getting location');
     }
 
     final locationJson = jsonDecode(locationResponse.body);
-    print(locationJson['Results']);
+    //final courtsJson =  locationJson['Results'];
+    return CourtList.fromJson(locationJson);
   }
 
 // _animateToUser() async {

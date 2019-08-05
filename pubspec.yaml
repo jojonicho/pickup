@@ -22,6 +22,7 @@ dependencies:
   
   flutter_bloc:
   equatable:
+  json_annotation:
 
   google_maps_flutter: ^0.5.19
   location: ^2.3.5
@@ -33,6 +34,8 @@ dependencies:
 
 
 dev_dependencies:
+  json_serializable:
+  build_runner:
   flutter_test:
     sdk: flutter
 
