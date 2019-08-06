@@ -19,14 +19,14 @@ class _CourtListViewState extends State<CourtListView> {
     final courtBloc = BlocProvider.of<CourtBloc>(context);
     // final courts = Court.fetchAll();
     return Align(
-      alignment: Alignment(0.00, 0.70),
+      alignment: Alignment(0.00, 0.76),
       child: Card(
         //padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
         color: Colors.yellow[50],
         margin: EdgeInsets.all(10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.35,
+            height: MediaQuery.of(context).size.height * 0.25,
             child:
                 BlocBuilder<CourtBloc, CourtState>(builder: (context, state) {
               // if (state is LocationLoaded) {
