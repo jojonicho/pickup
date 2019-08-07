@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scratch/bloc/bloc.dart';
-import 'package:scratch/models/court.dart';
 import 'package:meta/meta.dart';
-
-import 'widgets.dart';
+import 'package:scratch/widgets/widgets.dart';
 
 class CourtListView extends StatefulWidget {
   final location;
@@ -26,7 +24,7 @@ class _CourtListViewState extends State<CourtListView> {
         margin: EdgeInsets.all(10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: MediaQuery.of(context).size.height * 0.35,
             child:
                 BlocBuilder<CourtBloc, CourtState>(builder: (context, state) {
               // if (state is LocationLoaded) {
@@ -40,7 +38,16 @@ class _CourtListViewState extends State<CourtListView> {
                 return Center(child: CircularProgressIndicator());
               }
               if (state is CourtLoaded) {
-                return Center(child: Text('Loaded lol'));
+                final court = state.court.court;
+                var currentPage = court.length - 1.0;
+                PageController controller =
+                    PageController(initialPage: court.length - 1);
+                controller.addListener(() {
+                  setState(() {
+                    currentPage = controller.page;
+                  });
+                });
+                return CardScroll(currentPage, court);
               }
               if (state is CourtError) {
                 return RefreshIndicator(
@@ -61,7 +68,7 @@ class _CourtListViewState extends State<CourtListView> {
                             ),
                           ),
                           Text('Pull to refresh',
-                              style: TextStyle(fontSize: 14))
+                              style: TextStyle(fontSize: 14)),
                         ],
                       ),
                     ],
@@ -81,14 +88,14 @@ class _CourtListViewState extends State<CourtListView> {
     );
   }
 
-  _onLocationTap(BuildContext context, int courtID) {
-    Navigator.pushNamed(context, CourtRoute, arguments: {"id": courtID});
-  }
+  // _onLocationTap(BuildContext context, int courtID) {
+  //   Navigator.pushNamed(context, CourtRoute, arguments: {"id": courtID});
+  // }
 
-  _itemBuilder(BuildContext context, Court court) {
-    return InkWell(
-      onTap: () => _onLocationTap(context, court.id),
-      child: GenerateCourt(court.name, court.address),
-    );
-  }
+  // _itemBuilder(BuildContext context, Court court) {
+  //   return InkWell(
+  //     onTap: () => _onLocationTap(context, court.id),
+  //     child: GenerateCourt(court.name, court.address),
+  //   );
+  // }
 }

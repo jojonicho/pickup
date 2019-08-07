@@ -22,11 +22,12 @@ class CourtBloc extends Bloc<CourtEvent, CourtState> {
       yield CourtLoading();
       try {
         LocationData currentLocation = event.location;
-        final List<Court> court = await CourtRepository(
+        final CourtList court = await CourtRepository(
                 courtApiClient: courtRepository.courtApiClient)
             .getNearCourts(currentLocation);
         yield CourtLoaded(court: court);
-      } catch (_) {
+      } catch (error) {
+        print(error.toString());
         yield CourtError();
       }
     }

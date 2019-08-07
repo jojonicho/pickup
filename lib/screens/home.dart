@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
 import 'package:scratch/bloc/bloc.dart';
-// import 'package:scratch/models/court.dart';
 import 'package:scratch/widgets/widgets.dart';
 import 'package:scratch/style.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -15,6 +14,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Completer<GoogleMapController> _controller = Completer();
+
+  // TEST THE API HERE //
+  // var url =
+  //     'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-6.182412,106.734575&radius=3500&keyword=basket&key=AIzaSyA6g7pytqXm3WEBzyDpbvJW2jEfxSPTDAk';
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchData();
+  // }
+
+  // fetchData() async {
+  //   var res = await http.get(url);
+  //   var dec = jsonDecode(res.body);
+  //   print(res.body);
+  // }
 
   @override
   Widget build(BuildContext context) {

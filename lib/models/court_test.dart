@@ -1,6 +1,4 @@
 import 'package:meta/meta.dart';
-// import 'package:json_annotation/json_annotation.dart';
-// part 'court_test.g.dart';
 
 class CourtList {
   List<Court> court;

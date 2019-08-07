@@ -9,7 +9,7 @@ class CourtRepository {
   CourtRepository({@required this.courtApiClient})
       : assert(courtApiClient != null);
 
-  Future<List<Court>> getNearCourts(LocationData location) async {
+  Future<CourtList> getNearCourts(LocationData location) async {
     return await courtApiClient.fetchCourts(location);
   }
 }

@@ -12,11 +12,17 @@ class InitialCourtState extends CourtState {}
 class CourtLoading extends CourtState {}
 
 class CourtLoaded extends CourtState {
-  final List<Court> court;
+  final CourtList court;
 
   CourtLoaded({@required this.court})
       : assert(court != null),
         super([court]);
 }
 
-class CourtError extends CourtState {}
+class CourtError extends CourtState {
+  // final String error;
+
+  // CourtError({@required this.error})
+  //     : assert(error != null),
+  //       super([error]);
+}
