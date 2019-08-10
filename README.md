@@ -1,4 +1,4 @@
-# scratch
+# PICKUP Flutter App
 
 A new Flutter project.
 
