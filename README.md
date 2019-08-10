@@ -1,6 +1,6 @@
 # PICKUP Flutter App
 
-![alt text]https://imgur.com/a/pr9co0o
+[alt text]https://imgur.com/a/pr9co0o
 
 ## Getting Started
 
