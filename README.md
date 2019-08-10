@@ -1,6 +1,6 @@
 # PICKUP Flutter App
 
-[](https://imgur.com/a/pr9co0o)
+![](demo.png)
 
 ## Getting Started
 
