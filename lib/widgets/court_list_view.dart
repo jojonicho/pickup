@@ -17,14 +17,14 @@ class _CourtListViewState extends State<CourtListView> {
     final courtBloc = BlocProvider.of<CourtBloc>(context);
     // final courts = Court.fetchAll();
     return Align(
-      alignment: Alignment(0.00, 0.76),
+      alignment: Alignment(0.00, 0.71),
       child: Card(
         //padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
         color: Colors.yellow[50],
         margin: EdgeInsets.all(10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.35,
+            height: MediaQuery.of(context).size.height * 0.32,
             child:
                 BlocBuilder<CourtBloc, CourtState>(builder: (context, state) {
               // if (state is LocationLoaded) {
@@ -39,15 +39,43 @@ class _CourtListViewState extends State<CourtListView> {
               }
               if (state is CourtLoaded) {
                 final court = state.court.court;
-                var currentPage = court.length - 1.0;
-                PageController controller =
-                    PageController(initialPage: court.length - 1);
-                controller.addListener(() {
-                  setState(() {
-                    currentPage = controller.page;
+                if (court.length == 0) {
+                  return RefreshIndicator(
+                    onRefresh: () {
+                      courtBloc.dispatch(FetchCourt(location: widget.location));
+                      return null;
+                    },
+                    child: ListView(
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+                              child: Text(
+                                'There seems to be no courts!',
+                                style: TextStyle(
+                                    color: Colors.pink[200], fontSize: 24),
+                              ),
+                            ),
+                            Text('Pull to refresh',
+                                style: TextStyle(fontSize: 14)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                } else if (court.length != 0) {
+                  var currentPage = court.length - 1.0;
+                  PageController controller =
+                      PageController(initialPage: court.length - 1);
+                  controller.addListener(() {
+                    setState(() {
+                      currentPage = controller.page;
+                    });
                   });
-                });
-                return CardScroll(currentPage, court);
+                  return CardScroll(currentPage, court);
+                }
               }
               if (state is CourtError) {
                 return RefreshIndicator(
