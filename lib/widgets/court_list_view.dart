@@ -39,7 +39,7 @@ class _CourtListViewState extends State<CourtListView> {
               }
               if (state is CourtLoaded) {
                 final court = state.court.court;
-                if (court.length == 0) {
+                if (court.length != 0) {
                   return RefreshIndicator(
                     onRefresh: () {
                       courtBloc.dispatch(FetchCourt(location: widget.location));
@@ -65,16 +65,30 @@ class _CourtListViewState extends State<CourtListView> {
                       ],
                     ),
                   );
-                } else if (court.length != 0) {
-                  var currentPage = court.length - 1.0;
+                } else if (court.length == 0) {
+                  var currentPage = images.length - 1.0;
                   PageController controller =
-                      PageController(initialPage: court.length - 1);
+                      PageController(initialPage: images.length - 1);
                   controller.addListener(() {
                     setState(() {
                       currentPage = controller.page;
                     });
                   });
-                  return CardScroll(currentPage, court);
+                  return Stack(
+                    children: <Widget>[
+                      CardScroll(currentPage, court),
+                      Positioned.fill(
+                        child: PageView.builder(
+                          itemCount: images.length,
+                          controller: controller,
+                          reverse: true,
+                          itemBuilder: (context, index) {
+                            return Container();
+                          },
+                        ),
+                      )
+                    ],
+                  );
                 }
               }
               if (state is CourtError) {

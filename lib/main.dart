@@ -37,7 +37,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        onGenerateRoute: routes(),
+        // onGenerateRoute: routes(),
         theme: ThemeData(
           primaryColor: Colors.indigo[300],
         ),

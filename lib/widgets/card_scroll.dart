@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:scratch/models/models.dart';
+import 'widgets.dart';
 
 class CardScroll extends StatelessWidget {
   final currentPage;
@@ -32,7 +33,7 @@ class CardScroll extends StatelessWidget {
 
         List<Widget> cardList = new List();
 
-        for (var i = 0; i < court.length; i++) {
+        for (var i = 0; i < images.length; i++) {
           var delta = i - currentPage;
           bool isOnRight = delta > 0;
 
@@ -61,8 +62,8 @@ class CardScroll extends StatelessWidget {
                   child: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      Image.asset(court[i].photos.first.photoReference,
-                          fit: BoxFit.cover),
+                      // Image.asset(court[i].photos.first.photoReference,
+                      Image.asset(images[i], fit: BoxFit.cover),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Column(
@@ -72,7 +73,7 @@ class CardScroll extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
-                              child: Text(court[i].name,
+                              child: Text('Image $i',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 25.0,
@@ -90,7 +91,7 @@ class CardScroll extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     color: Colors.blueAccent,
                                     borderRadius: BorderRadius.circular(20.0)),
-                                child: Text("Read Later",
+                                child: Text("Visit",
                                     style: TextStyle(color: Colors.white)),
                               ),
                             )
