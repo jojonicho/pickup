@@ -7,7 +7,7 @@ Yes, I'm using Google Places API to fetch data from the user's current location.
 ## How does it work?
 Using the flutter_bloc library, state management becomes easy to handle. It takes an event and maps it into a state.
 
-![](http://www.giphy.com/gifs/MAbwchx71hBitgFKwY)
+![](pickupgif.gif)
 
 ## Getting Started
 
