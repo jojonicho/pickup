@@ -1,13 +1,13 @@
 # PICKUP Flutter App
-An app to display nearby courts for ios and android
+An app to display nearby courts for ios and android (only set up location permissions for ios at the moment)
 
 ## Does this include a real API call?
-Yes, I'm using the places API to fetch data from the user's current location.
+Yes, I'm using Google Places API to fetch data from the user's current location.
 
 ## How does it work?
 Using the flutter_bloc library, state management becomes easy to handle. It takes an event and maps it into a state.
 
-![](demo.png)
+![](http://www.giphy.com/gifs/MAbwchx71hBitgFKwY)
 
 ## Getting Started
 
