@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scratch/bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:scratch/models/models.dart';
 import 'package:scratch/widgets/widgets.dart';
 
 class CourtListView extends StatefulWidget {
@@ -43,9 +44,23 @@ class _CourtListViewState extends State<CourtListView> {
                   return RefreshIndicator(
                     onRefresh: () {
                       courtBloc.dispatch(FetchCourt(location: widget.location));
-                      return null;
+                      return ;
                     },
-                    child: ListView(
+                    child: ListView.builder(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      shrinkWrap: true,
+                      itemCount: court.length,
+                      itemBuilder: (BuildContext context, int index) =>
+                          _itemBuilder(context, court[index]),
+                    ),
+                  );
+                } else if (court.length == 0) {
+                  return RefreshIndicator(
+                    onRefresh: () {
+                      courtBloc.dispatch(FetchCourt(location: widget.location));
+                      return ;
+                    },
+                  child: ListView(
                       children: <Widget>[
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,32 +78,31 @@ class _CourtListViewState extends State<CourtListView> {
                           ],
                         ),
                       ],
-                    ),
+                    )
                   );
-                } else if (court.length == 0) {
-                  var currentPage = images.length - 1.0;
-                  PageController controller =
-                      PageController(initialPage: images.length - 1);
-                  controller.addListener(() {
-                    setState(() {
-                      currentPage = controller.page;
-                    });
-                  });
-                  return Stack(
-                    children: <Widget>[
-                      CardScroll(currentPage, court),
-                      Positioned.fill(
-                        child: PageView.builder(
-                          itemCount: images.length,
-                          controller: controller,
-                          reverse: true,
-                          itemBuilder: (context, index) {
-                            return Container();
-                          },
-                        ),
-                      )
-                    ],
-                  );
+                  // var currentPage = images.length - 1.0;
+                  // PageController controller =
+                  //     PageController(initialPage: images.length - 1);
+                  // controller.addListener(() {
+                  //   setState(() {
+                  //     currentPage = controller.page;
+                  //   });
+                  // });
+                  // return Stack(
+                  //   children: <Widget>[
+                  //     CardScroll(currentPage, court),
+                  //     Positioned.fill(
+                  //       child: PageView.builder(
+                  //         itemCount: images.length,
+                  //         controller: controller,
+                  //         reverse: true,
+                  //         itemBuilder: (context, index) {
+                  //           return Container();
+                  //         },
+                  //       ),
+                  //     )
+                  //   ],
+                  // );
                 }
               }
               if (state is CourtError) {
@@ -130,14 +144,14 @@ class _CourtListViewState extends State<CourtListView> {
     );
   }
 
-  // _onLocationTap(BuildContext context, int courtID) {
+  // _onLocationTap(BuildContext context, String courtID) {
   //   Navigator.pushNamed(context, CourtRoute, arguments: {"id": courtID});
   // }
 
-  // _itemBuilder(BuildContext context, Court court) {
-  //   return InkWell(
-  //     onTap: () => _onLocationTap(context, court.id),
-  //     child: GenerateCourt(court.name, court.address),
-  //   );
-  // }
+  _itemBuilder(BuildContext context, Court court) {
+    return InkWell(
+      // onTap: () => _onLocationTap(context, court.id),
+      child: GenerateCourt(court.name, court.userRatingsTotal),
+    );
+  }
 }

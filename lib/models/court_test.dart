@@ -45,6 +45,10 @@ class Court {
       this.userRatingsTotal,
       this.vicinity});
 
+  // Court.fetchById() {
+
+  // }
+
   Court.fromJson(Map<String, dynamic> json) {
     geometry = json['geometry'] != null
         ? new Geometry.fromJson(json['geometry'])

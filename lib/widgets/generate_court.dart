@@ -3,8 +3,8 @@ import 'dart:math';
 
 class GenerateCourt extends StatelessWidget {
   final String name;
-  final String address;
-  GenerateCourt(this.name, this.address);
+  final int rating;
+  GenerateCourt(this.name, this.rating);
 
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +26,7 @@ class GenerateCourt extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    address,
+                    rating.toString(),
                     style: TextStyle(color: Colors.grey[500]),
                   )
                 ],
