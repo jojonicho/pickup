@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>lol</string>
+	<string>giv me locatiom</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
 	<key>CFBundleDevelopmentRegion</key>

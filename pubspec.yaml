@@ -24,8 +24,9 @@ dependencies:
   equatable:
   json_annotation:
 
-  google_maps_flutter: ^0.5.19
-  location: ^2.3.5
+  google_maps_flutter: 
+  location: 
+  flutter_dotenv:
   http:
   
   # The following adds the Cupertino Icons font to your application.
@@ -54,6 +55,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

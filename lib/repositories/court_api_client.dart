@@ -1,14 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../models/models.dart';
 
 class CourtApiClient {
+  static final apiKey = DotEnv().env['FLUTTER_GMAPS_API_KEY'];
   static const baseUrl =
       'https://maps.googleapis.com/maps/api/place/nearbysearch';
-  static const testUrl =
-      'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-6.182412,106.734575&radius=3500&keyword=basket&key=AIzaSyA6g7pytqXm3WEBzyDpbvJW2jEfxSPTDAk';
+  static final testUrl =
+      'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-6.182412,106.734575&radius=3500&keyword=basket&key=$apiKey';
   final http.Client httpClient;
 
   CourtApiClient({
@@ -19,7 +21,7 @@ class CourtApiClient {
     final lat = location.latitude;
     final lng = location.longitude;
     final locationUrl =
-        '$baseUrl/json?location=$lat,$lng&radius=3500&keyword=basket&key=AIzaSyA6g7pytqXm3WEBzyDpbvJW2jEfxSPTDAk';
+        '$baseUrl/json?location=$lat,$lng&radius=3500&keyword=basket&key=$apiKey';
     final locationResponse = await this.httpClient.get(locationUrl);
     if (locationResponse.statusCode != 200) {
       throw Exception('error getting location');

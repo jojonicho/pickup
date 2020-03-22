@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'bloc/bloc.dart';
 import 'repositories/repositories.dart';
 import 'screens/home.dart';
@@ -14,7 +15,9 @@ class SimpleBlocDelegate extends BlocDelegate {
   }
 }
 
-void main() {
+Future main() async {
+  await DotEnv().load('.env');
+  
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
   final CourtRepository courtRepository = CourtRepository(
